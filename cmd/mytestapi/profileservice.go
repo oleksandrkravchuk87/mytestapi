@@ -9,35 +9,37 @@ import (
 )
 
 const (
-	selectUserProfilesQuery = `SELECT
-								    u.id,
-								    u.username,
-								    up.first_name,
-								    up.last_name,
-								    up.city,
-								    ud.school
-								FROM
-								    user u
-								JOIN
-								    user_profile up ON u.id = up.user_id
-								JOIN
-								    user_data ud ON u.id = ud.user_id;`
+	selectUserProfilesQuery = `
+  SELECT
+	    u.id,
+	    u.username,
+	    up.first_name,
+	    up.last_name,
+	    up.city,
+	    ud.school
+	FROM
+	    user u
+	JOIN
+	    user_profile up ON u.id = up.user_id
+	JOIN
+	    user_data ud ON u.id = ud.user_id;`
 
-	selectUserProfileByUsernameQuery = `SELECT
-									    u.id,
-									    u.username,
-									    up.first_name,
-									    up.last_name,
-									    up.city,
-									    ud.school
-									FROM
-									    user u
-									JOIN
-									    user_profile up ON u.id = up.user_id
-									JOIN
-									    user_data ud ON u.id = ud.user_id
-									WHERE
-									    u.username = ?;`
+	selectUserProfileByUsernameQuery = `
+ SELECT
+	    u.id,
+	    u.username,
+	    up.first_name,
+	    up.last_name,
+	    up.city,
+	    ud.school
+	FROM
+	    user u
+	JOIN
+	    user_profile up ON u.id = up.user_id
+	JOIN
+	    user_data ud ON u.id = ud.user_id
+	WHERE
+	    u.username = ?;`
 )
 
 // ErrNotFound is not found error
