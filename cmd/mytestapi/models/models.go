@@ -1,4 +1,4 @@
-package mytestapi
+package models
 
 // UserProfile represents user profile
 type UserProfile struct {

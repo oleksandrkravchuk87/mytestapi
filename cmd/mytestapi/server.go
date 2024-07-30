@@ -4,13 +4,22 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"mytestapi/cmd/mytestapi/models"
 	"net/http"
+
+	_ "github.com/golang/mock/mockgen/model"
 )
+
+//go:generate mockgen -package=mocks -destination=./mocks/profileservice_mock.go mytestapi/cmd/mytestapi IProfileService
+type IProfileService interface {
+	GetProfileByUsername(userID string) (*models.UserProfile, error)
+	GetProfiles() ([]models.UserProfile, error)
+}
 
 // Server represents application http server
 type Server struct {
 	HttpServer     *http.Server
-	ProfileService *ProfileService
+	ProfileService IProfileService
 }
 
 // GetProfile is a profile handler

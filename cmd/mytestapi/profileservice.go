@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"mytestapi/cmd/mytestapi/models"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -56,8 +57,8 @@ func NewProfileService(db *sqlx.DB) *ProfileService {
 }
 
 // GetProfileByUsername returns profile by username
-func (p *ProfileService) GetProfileByUsername(userID string) (*UserProfile, error) {
-	var userProfile UserProfile
+func (p *ProfileService) GetProfileByUsername(userID string) (*models.UserProfile, error) {
+	var userProfile models.UserProfile
 	err := p.dbClient.Get(&userProfile, selectUserProfileByUsernameQuery, userID)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
@@ -69,8 +70,8 @@ func (p *ProfileService) GetProfileByUsername(userID string) (*UserProfile, erro
 }
 
 // GetProfiles returns all profiles
-func (p *ProfileService) GetProfiles() ([]UserProfile, error) {
-	userProfiles := []UserProfile{}
+func (p *ProfileService) GetProfiles() ([]models.UserProfile, error) {
+	userProfiles := []models.UserProfile{}
 	err := p.dbClient.Select(&userProfiles, selectUserProfilesQuery)
 	if err != nil {
 		return nil, err
