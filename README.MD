@@ -17,7 +17,7 @@ A test server for managing user profiles.
 
 `go build -o migrate`
 
-`./migrate.exe --dbUser=root --dbPass=root --dbHost=localhost --dbPort=3306 --sqlFile=./migrations.sql`
+`./migrate --dbUser=root --dbPass=root --dbHost=localhost --dbPort=3306 --sqlFile=./migrations.sql`
 
 ### Run application:
 ###### Windows:
@@ -25,6 +25,6 @@ A test server for managing user profiles.
 
 `.\bin\mytestapi.exe --port=8080 --dbUser=root --dbPass=root --dbHost=localhost --dbPort=3306`
 ###### Linux:
-`go build  -o ./bin/mytestapi.exe`
+`go build  -o ./bin/mytestapi`
 
-`./bin/mytestapi.exe --port=8080 --dbUser=root --dbPass=root --dbHost=localhost --dbPort=3306`
+`./bin/mytestapi --port=8080 --dbUser=root --dbPass=root --dbHost=localhost --dbPort=3306`
