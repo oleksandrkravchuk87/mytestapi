@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS testdb;
+
 USE testdb;
 
 CREATE TABLE `user` (
