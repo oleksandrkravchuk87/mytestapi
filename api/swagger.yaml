@@ -3,7 +3,6 @@ info:
   description: "This is a sample server for managing user profiles."
   version: "1.0.0"
   title: "User Profile API"
-host: "localhost:8080"
 basePath: "/"
 schemes:
   - "http"

@@ -2,7 +2,7 @@ package mytestapi
 
 import (
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -104,7 +104,7 @@ func TestServer_GetProfile(t *testing.T) {
 				t.Errorf("expected status %d, got %d", tt.expectedStatus, resp.StatusCode)
 			}
 
-			body, err := ioutil.ReadAll(resp.Body)
+			body, err := io.ReadAll(resp.Body)
 			if err != nil {
 				t.Fatalf("could not read response body: %v", err)
 			}
