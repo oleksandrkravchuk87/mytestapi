@@ -33,14 +33,6 @@ func TestServer_GetProfile(t *testing.T) {
 		expectedBody   string
 	}{
 		{
-			name:           "Method not allowed",
-			method:         http.MethodPost,
-			username:       "",
-			mockSetup:      func() {},
-			expectedStatus: http.StatusMethodNotAllowed,
-			expectedBody:   "Method not allowed",
-		},
-		{
 			name:     "Get all profiles",
 			method:   http.MethodGet,
 			username: "",

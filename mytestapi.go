@@ -37,7 +37,7 @@ func main() {
 	middleware := negroni.New(accessMiddleware)
 
 	mux := http.NewServeMux()
-	mux.Handle("/profile", server.GetProfile())
+	mux.Handle("GET /profile", server.GetProfile())
 	middleware.UseHandler(mux)
 
 	quit := make(chan os.Signal, 1)

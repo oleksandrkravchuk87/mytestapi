@@ -25,11 +25,6 @@ type Server struct {
 // GetProfile is a profile handler
 func (s *Server) GetProfile() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-			return
-		}
-
 		username := r.URL.Query().Get("username")
 		if username == "" {
 			userProfiles, err := s.ProfileService.GetProfiles()
