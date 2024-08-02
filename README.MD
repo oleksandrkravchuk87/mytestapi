@@ -5,6 +5,9 @@ A test server for managing user profiles.
 ##### Run docker container
 `docker run --name local-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=testdb -p 3306:3306 -d mysql:9.0.1`
 
+### Dependencies:
+`go mod vendor`
+
 ##### Create schema:
 ###### Windows:
 `cd .\utils\`
