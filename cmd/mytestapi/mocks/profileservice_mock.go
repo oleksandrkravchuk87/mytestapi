@@ -5,7 +5,8 @@
 package mocks
 
 import (
-	mytestapi "mytestapi/cmd/mytestapi/models"
+	context "context"
+	models "mytestapi/cmd/mytestapi/models"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
@@ -35,31 +36,31 @@ func (m *MockIProfileService) EXPECT() *MockIProfileServiceMockRecorder {
 }
 
 // GetProfileByUsername mocks base method.
-func (m *MockIProfileService) GetProfileByUsername(arg0 string) (*mytestapi.UserProfile, error) {
+func (m *MockIProfileService) GetProfileByUsername(arg0 context.Context, arg1 string) (*models.UserProfile, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetProfileByUsername", arg0)
-	ret0, _ := ret[0].(*mytestapi.UserProfile)
+	ret := m.ctrl.Call(m, "GetProfileByUsername", arg0, arg1)
+	ret0, _ := ret[0].(*models.UserProfile)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetProfileByUsername indicates an expected call of GetProfileByUsername.
-func (mr *MockIProfileServiceMockRecorder) GetProfileByUsername(arg0 interface{}) *gomock.Call {
+func (mr *MockIProfileServiceMockRecorder) GetProfileByUsername(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProfileByUsername", reflect.TypeOf((*MockIProfileService)(nil).GetProfileByUsername), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProfileByUsername", reflect.TypeOf((*MockIProfileService)(nil).GetProfileByUsername), arg0, arg1)
 }
 
 // GetProfiles mocks base method.
-func (m *MockIProfileService) GetProfiles() ([]mytestapi.UserProfile, error) {
+func (m *MockIProfileService) GetProfiles(arg0 context.Context) ([]models.UserProfile, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetProfiles")
-	ret0, _ := ret[0].([]mytestapi.UserProfile)
+	ret := m.ctrl.Call(m, "GetProfiles", arg0)
+	ret0, _ := ret[0].([]models.UserProfile)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetProfiles indicates an expected call of GetProfiles.
-func (mr *MockIProfileServiceMockRecorder) GetProfiles() *gomock.Call {
+func (mr *MockIProfileServiceMockRecorder) GetProfiles(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProfiles", reflect.TypeOf((*MockIProfileService)(nil).GetProfiles))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProfiles", reflect.TypeOf((*MockIProfileService)(nil).GetProfiles), arg0)
 }

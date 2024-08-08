@@ -1,6 +1,7 @@
 package mytestapi
 
 import (
+	"context"
 	"errors"
 	"io"
 	"net/http"
@@ -37,7 +38,7 @@ func TestServer_GetProfile(t *testing.T) {
 			method:   http.MethodGet,
 			username: "",
 			mockSetup: func() {
-				mockProfileService.EXPECT().GetProfiles().Return([]models.UserProfile{
+				mockProfileService.EXPECT().GetProfiles(context.Background()).Return([]models.UserProfile{
 					{ID: 1, Username: "user1", FirstName: "FirstName", LastName: "LastName"},
 				}, nil)
 			},
@@ -49,7 +50,7 @@ func TestServer_GetProfile(t *testing.T) {
 			method:   http.MethodGet,
 			username: "user1",
 			mockSetup: func() {
-				mockProfileService.EXPECT().GetProfileByUsername("user1").Return(&models.UserProfile{
+				mockProfileService.EXPECT().GetProfileByUsername(context.Background(), "user1").Return(&models.UserProfile{
 					ID: 1, Username: "user1", FirstName: "FirstName", LastName: "LastName",
 				}, nil)
 			},
@@ -61,7 +62,7 @@ func TestServer_GetProfile(t *testing.T) {
 			method:   http.MethodGet,
 			username: "user2",
 			mockSetup: func() {
-				mockProfileService.EXPECT().GetProfileByUsername("user2").Return(nil, ErrNotFound)
+				mockProfileService.EXPECT().GetProfileByUsername(context.Background(), "user2").Return(nil, ErrNotFound)
 			},
 			expectedStatus: http.StatusNotFound,
 			expectedBody:   "no profile found with user ID user2",
@@ -71,7 +72,7 @@ func TestServer_GetProfile(t *testing.T) {
 			method:   http.MethodGet,
 			username: "user3",
 			mockSetup: func() {
-				mockProfileService.EXPECT().GetProfileByUsername("user3").Return(nil, errors.New("internal error"))
+				mockProfileService.EXPECT().GetProfileByUsername(context.Background(), "user3").Return(nil, errors.New("internal error"))
 			},
 			expectedStatus: http.StatusInternalServerError,
 			expectedBody:   "Error retrieving user profile",

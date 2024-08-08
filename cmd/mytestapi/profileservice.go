@@ -1,6 +1,7 @@
 package mytestapi
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -57,9 +58,9 @@ func NewProfileService(db *sqlx.DB) *ProfileService {
 }
 
 // GetProfileByUsername returns profile by username
-func (p *ProfileService) GetProfileByUsername(userID string) (*models.UserProfile, error) {
+func (p *ProfileService) GetProfileByUsername(ctx context.Context, userID string) (*models.UserProfile, error) {
 	var userProfile models.UserProfile
-	err := p.dbClient.Get(&userProfile, selectUserProfileByUsernameQuery, userID)
+	err := p.dbClient.GetContext(ctx, &userProfile, selectUserProfileByUsernameQuery, userID)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, fmt.Errorf("no user found with user_id %s: %w", userID, ErrNotFound)
@@ -70,9 +71,9 @@ func (p *ProfileService) GetProfileByUsername(userID string) (*models.UserProfil
 }
 
 // GetProfiles returns all profiles
-func (p *ProfileService) GetProfiles() ([]models.UserProfile, error) {
+func (p *ProfileService) GetProfiles(ctx context.Context) ([]models.UserProfile, error) {
 	userProfiles := []models.UserProfile{}
-	err := p.dbClient.Select(&userProfiles, selectUserProfilesQuery)
+	err := p.dbClient.SelectContext(ctx, &userProfiles, selectUserProfilesQuery)
 	if err != nil {
 		return nil, err
 	}

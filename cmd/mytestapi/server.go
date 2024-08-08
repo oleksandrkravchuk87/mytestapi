@@ -1,6 +1,7 @@
 package mytestapi
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,8 +13,8 @@ import (
 
 //go:generate mockgen -package=mocks -destination=./mocks/profileservice_mock.go mytestapi/cmd/mytestapi IProfileService
 type IProfileService interface {
-	GetProfileByUsername(userID string) (*models.UserProfile, error)
-	GetProfiles() ([]models.UserProfile, error)
+	GetProfileByUsername(ctx context.Context, userID string) (*models.UserProfile, error)
+	GetProfiles(ctx context.Context) ([]models.UserProfile, error)
 }
 
 // Server represents application http server
@@ -27,7 +28,7 @@ func (s *Server) GetProfile() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		username := r.URL.Query().Get("username")
 		if username == "" {
-			userProfiles, err := s.ProfileService.GetProfiles()
+			userProfiles, err := s.ProfileService.GetProfiles(r.Context())
 			if err != nil {
 				http.Error(w, "Error retrieving user profile", http.StatusInternalServerError)
 				return
@@ -40,7 +41,7 @@ func (s *Server) GetProfile() http.Handler {
 			return
 		}
 
-		userProfile, err := s.ProfileService.GetProfileByUsername(username)
+		userProfile, err := s.ProfileService.GetProfileByUsername(r.Context(), username)
 		if err != nil {
 			if errors.Is(err, ErrNotFound) {
 				http.Error(w, fmt.Sprintf("no profile found with user ID %s", username), http.StatusNotFound)
